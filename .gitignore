@@ -1,0 +1,57 @@
+# Dependency directories
+node_modules/
+bower_components/
+
+# TypeScript compiled files
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Optional npm cache & logs
+.npm
+.npmrc
+.npm-debug.log*
+
+# Optional eslint cache
+.eslintcache
+
+# Optional: Yarn PnP files
+.pnp/
+.pnp.js
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Next.js build output
+.next/
+
+# Coverage directory used by tools like Istanbul
+coverage/
+
+# Testing
+*.test.ts
+*.spec.ts

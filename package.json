@@ -1,0 +1,25 @@
+{
+  "name": "anime4k",
+  "version": "1.0.0",
+  "description": "Real Time Upscaler for Anime Video",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anime4KWebBoost/Anime4K-WebGPU.git"
+  },
+  "keywords": [
+    "upscale",
+    "webgpu",
+    "video",
+    "anime"
+  ],
+  "author": "Anime4KWebBoost Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anime4KWebBoost/Anime4K-WebGPU/issues"
+  },
+  "homepage": "https://github.com/Anime4KWebBoost/Anime4K-WebGPU#readme"
+}
