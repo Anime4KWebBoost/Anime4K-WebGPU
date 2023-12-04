@@ -22,5 +22,8 @@ module.exports = {
   output: {
     filename: "index.js",
     path: path.resolve(__dirname, "lib"),
+    library: "anime4k-webgpu",
+    libraryTarget: "umd",
+    globalObject: "this",
   },
 };
