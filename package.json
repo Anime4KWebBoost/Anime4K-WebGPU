@@ -2,14 +2,16 @@
   "name": "anime4k-webgpu",
   "version": "0.1.0",
   "description": "Anime4K WebGPU port",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js"
-  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc && cp -R src/shaders dist/shaders"
+    "build": "webpack"
   },
+  "files": [
+    "dist/",
+    "LICENSE.md",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Anime4KWebBoost/Anime4K-WebGPU.git"
@@ -32,6 +34,10 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@webgpu/types": "^0.1.38"
+    "@webgpu/types": "^0.1.38",
+    "raw-loader": "^4.0.2",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   }
 }
