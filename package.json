@@ -1,11 +1,17 @@
 {
-  "name": "anime4k",
-  "version": "1.0.0",
-  "description": "Real Time Upscaler for Anime Video",
-  "main": "index.js",
+  "name": "anime4k-webgpu",
+  "version": "0.1.5",
+  "description": "Anime4K WebGPU port",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack"
   },
+  "files": [
+    "lib/",
+    "LICENSE.md",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Anime4KWebBoost/Anime4K-WebGPU.git"
@@ -14,12 +20,24 @@
     "upscale",
     "webgpu",
     "video",
-    "anime"
+    "anime",
+    "supersampling"
   ],
   "author": "Anime4KWebBoost Team",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Anime4KWebBoost/Anime4K-WebGPU/issues"
   },
-  "homepage": "https://github.com/Anime4KWebBoost/Anime4K-WebGPU#readme"
+  "homepage": "https://github.com/Anime4KWebBoost/Anime4K-WebGPU#readme",
+  "peerDependencies": {
+    "@webgpu/types": "^0.1.38"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@webgpu/types": "^0.1.38",
+    "raw-loader": "^4.0.2",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
 }
