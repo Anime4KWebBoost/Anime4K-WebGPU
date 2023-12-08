@@ -1,3 +1,1 @@
-import UpscaleCNNPipeline from "./CNN";
-
-export { UpscaleCNNPipeline };
+export {};
