@@ -1,24 +1,28 @@
-import Anime4KPipeline from "../Anime4KPipeline";
+import Anime4KPipeline from '../Anime4KPipeline';
 
 /**
- * Conv2d pipeline 
- *    Takes in n input textures output texture. All input textures and output texture 
+ * Conv2d pipeline
+ *    Takes in n input textures output texture. All input textures and output texture
  * have the same dimensions.
 */
 export default class Conv2d implements Anime4KPipeline {
   outputTexture: GPUTexture;
+
   pipeline: GPUComputePipeline;
+
   bindGroup: GPUBindGroup;
+
   name: string;
 
   /**
    * Constructor
    * @param device - GPUDevice used to create things.
-   * @param inputTextures - input textures of the shader. All textures should have the same dimensions.
+   * @param inputTextures - input textures of the shader.
+   * All textures should have the same dimensions.
    * @param shaderWGSL - shader file as a string.
    * @param name - optional name of the instance, identify this conv2d pipeline and easy to debug.
    */
-  constructor(device: GPUDevice, inputTextures: GPUTexture[], shaderWGSL: string, name="defaultCon2d") {
+  constructor(device: GPUDevice, inputTextures: GPUTexture[], shaderWGSL: string, name = 'defaultCon2d') {
     this.name = name;
     const inputLength = inputTextures.length;
     if (inputLength === 0) {
@@ -83,7 +87,7 @@ export default class Conv2d implements Anime4KPipeline {
       label: `${name}: pipeline layout`,
       bindGroupLayouts: [bindGroupLayout],
     });
-    
+
     // Pipeline
     this.pipeline = device.createComputePipeline({
       label: `${name}: pipeline`,
@@ -96,7 +100,7 @@ export default class Conv2d implements Anime4KPipeline {
   }
 
   updateParam(param: string, value: any): void {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   pass(encoder: GPUCommandEncoder): void {

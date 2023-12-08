@@ -1,13 +1,16 @@
 import depthToSpaceWGSL from '../../shaders/helpers/depthToSpace.wgsl';
-import Anime4KPipeline from "../Anime4KPipeline";
+import Anime4KPipeline from '../Anime4KPipeline';
 
-export default class Overlay implements Anime4KPipeline {
+export default class DepthToSpace implements Anime4KPipeline {
   outputTexture: GPUTexture;
+
   pipeline: GPUComputePipeline;
+
   bindGroup: GPUBindGroup;
+
   name: string;
 
-  constructor(device: GPUDevice, inputTextures: GPUTexture[], name='defaultDepthToSpace') {
+  constructor(device: GPUDevice, inputTextures: GPUTexture[], name = 'defaultDepthToSpace') {
     // sanity check
     if (inputTextures.length !== 3) {
       throw Error(`expect 3 textures for depth2Space, got ${inputTextures.length}`);
@@ -99,7 +102,7 @@ export default class Overlay implements Anime4KPipeline {
   }
 
   updateParam(param: string, value: any): void {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   pass(encoder: GPUCommandEncoder): void {
@@ -115,5 +118,5 @@ export default class Overlay implements Anime4KPipeline {
 
   getOutputTexture(): GPUTexture {
     return this.outputTexture;
-  }  
+  }
 }

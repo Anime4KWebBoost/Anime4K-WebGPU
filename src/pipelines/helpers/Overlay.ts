@@ -7,8 +7,11 @@ import Anime4KPipeline from '../Anime4KPipeline';
  */
 export default class Overlay implements Anime4KPipeline {
   outputTexture: GPUTexture;
+
   pipeline: GPURenderPipeline;
+
   bindGroup: GPUBindGroup;
+
   name: string;
 
   /**
@@ -19,7 +22,7 @@ export default class Overlay implements Anime4KPipeline {
    * @param fragmentWGSL - fragment shader code as string
    * @param name - name to identify each instance.
    */
-  constructor(device: GPUDevice, inputTextures: GPUTexture[], outputTextureSize: number[], fragmentWGSL: string, name='defaultOverlay') {
+  constructor(device: GPUDevice, inputTextures: GPUTexture[], outputTextureSize: number[], fragmentWGSL: string, name = 'defaultOverlay') {
     const inputLength = inputTextures.length;
     this.name = name;
 
@@ -46,9 +49,9 @@ export default class Overlay implements Anime4KPipeline {
     // BindGroupLayout
     const bindGroupLayoutEntries: GPUBindGroupLayoutEntry[] = [];
     bindGroupLayoutEntries.push({
-        binding: 0,
-        visibility: GPUShaderStage.FRAGMENT,
-        sampler: {},
+      binding: 0,
+      visibility: GPUShaderStage.FRAGMENT,
+      sampler: {},
     });
     for (let i = 1; i <= inputLength; i += 1) {
       bindGroupLayoutEntries.push({
@@ -66,7 +69,7 @@ export default class Overlay implements Anime4KPipeline {
     const pipelineLayout = device.createPipelineLayout({
       label: `${name}: pipeline layout`,
       bindGroupLayouts: [bindGroupLayout],
-    })
+    });
 
     // Pipeline
     this.pipeline = device.createRenderPipeline({
@@ -88,13 +91,13 @@ export default class Overlay implements Anime4KPipeline {
         topology: 'triangle-list',
       },
     });
-    
+
     // Sampler
     const sampler = device.createSampler({
       magFilter: 'linear',
       minFilter: 'linear',
     });
-    
+
     // BindGroup
     const bindGroupEntries: GPUBindGroupEntry[] = [];
     bindGroupEntries.push({

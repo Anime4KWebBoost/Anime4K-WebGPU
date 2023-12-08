@@ -1,3 +1,3 @@
-import DeblurPipeline from "./DoG";
+import DoG from './DoG';
 
-export { DeblurPipeline };
+export { DoG };

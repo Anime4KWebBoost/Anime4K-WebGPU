@@ -1,4 +1,4 @@
-export default interface Anime4KPipeline {
+interface Anime4KPipeline {
   /**
    * Update the controllable parameter managed by the pipeline
    *
@@ -19,3 +19,5 @@ export default interface Anime4KPipeline {
    */
   getOutputTexture(): GPUTexture;
 }
+
+export default Anime4KPipeline;
