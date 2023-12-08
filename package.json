@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -r lib && webpack",
+    "build": "rm -rf lib && webpack",
     "dev": "nodemon",
     "lint": "eslint . --ext .js,.ts"
   },
