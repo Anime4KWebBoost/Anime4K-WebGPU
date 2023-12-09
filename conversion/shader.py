@@ -19,8 +19,8 @@ class TextureSet:
 class Context:
   def __init__(self, glslPath: str, outputRoot: str) -> None:
     self.glslPath = glslPath
-    self.glslName = glslPath.split("/")[-1].split(".")[0]
-    self.category = glslPath.split("/")[-2]
+    self.glslName = glslPath.split(os.sep)[-1].split(".")[0]
+    self.category = glslPath.split(os.sep)[-2].lower()
     self.outputRoot = outputRoot
     self.textureSet = TextureSet()
     self.layers: list[Layer] = []
