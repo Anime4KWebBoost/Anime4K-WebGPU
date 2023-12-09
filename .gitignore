@@ -7,7 +7,6 @@ dist/
 build/
 out/
 lib/
-conversion/
 *.tsbuildinfo
 
 # Logs
