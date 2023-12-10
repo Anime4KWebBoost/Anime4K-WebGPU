@@ -6,3 +6,4 @@ export * from './pipelines/denoise';
 export * from './pipelines/helpers';
 export * from './pipelines/examples';
 export * from './pipelines/upscale';
+export * from './pipelines/restore';

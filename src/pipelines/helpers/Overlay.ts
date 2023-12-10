@@ -26,6 +26,10 @@ export default class Overlay implements Anime4KPipeline {
     const inputLength = inputTextures.length;
     this.name = name;
 
+    if (fragmentWGSL === undefined) {
+      throw Error(`${name}: shader not defined.`);
+    }
+
     // texture
     this.outputTexture = device.createTexture({
       label: `${name}: output texture`,

@@ -26,8 +26,13 @@ export default class Conv2d implements Anime4KPipeline {
     this.name = name;
     const inputLength = inputTextures.length;
     if (inputLength === 0) {
-      throw Error(`${name}: 0 input textures for conv2d`);
+      throw Error(`${name}: 0 input textures for conv2d.`);
     }
+
+    if (shaderWGSL === undefined) {
+      throw Error(`${name}: shader not defined.`);
+    }
+
     // input textures and output texture must have the same dimensions,
     // so the output size are assigned the same dimension as the first input
     // texture.
