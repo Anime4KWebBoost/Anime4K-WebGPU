@@ -67,8 +67,6 @@ export default class UpscaleCNN implements Anime4KPipeline {
       }
     }
 
-    console.log(this.pipelines.length);
-
     outputTextures.length = 0;
     for (let i = 6; i < this.pipelines.length; i += 1) {
       outputTextures.push(this.pipelines[i].getOutputTexture());
