@@ -5,7 +5,16 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "dev": "nodemon",
+    "lint": "eslint . --ext .js,.ts"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts,js,wgsl",
+    "exec": "npm run build"
   },
   "files": [
     "lib/",
@@ -34,7 +43,18 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
     "@webgpu/types": "^0.1.38",
+    "clean-webpack-plugin": "^4.0.0",
+    "eslint": "^8.55.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "nodemon": "^3.0.2",
     "raw-loader": "^4.0.2",
     "ts-loader": "^9.5.1",
     "webpack": "^5.89.0",

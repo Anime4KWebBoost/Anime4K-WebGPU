@@ -1,4 +1,9 @@
 import Anime4KPipeline from './pipelines/Anime4KPipeline';
-import { DeblurPipeline } from './pipelines/deblur';
-import { UpscaleCNNPipeline } from './pipelines/upscale';
-export { Anime4KPipeline, DeblurPipeline, UpscaleCNNPipeline };
+
+export { Anime4KPipeline };
+export * from './pipelines/deblur';
+export * from './pipelines/denoise';
+export * from './pipelines/helpers';
+export * from './pipelines/examples';
+export * from './pipelines/upscale';
+export * from './pipelines/restore';

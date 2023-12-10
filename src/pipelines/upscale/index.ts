@@ -1,3 +1,5 @@
-import UpscaleCNNPipeline from "./CNN";
+import GANx3L from './GANx3L';
+import CNNx2UL from './CNNx2UL';
+import GANx4UUL from './GANx4UUL';
 
-export { UpscaleCNNPipeline };
+export { GANx3L, CNNx2UL, GANx4UUL };
