@@ -16,8 +16,6 @@ Take a look at our web demo at https://anime4k-webgpu-demo.fly.dev/ ([Source](ht
 
 Note: your browser must support WebGPU. See this [list](https://caniuse.com/webgpu) for compatibility.
 
-Live demo is deployed at: https://anime4k-webgpu-demo.fly.dev/ with source code in this repo: [Anime4K-Web-Demo](https://github.com/Anime4KWebBoost/Anime4K-Web-Demo)
-
 ## Usage
 
 This package contains classes that implements interface `Anime4KPipeline`. To use these classes, first install `anime4k-webgpu` package, then insert proveded pipelines in 3 lines:
@@ -149,6 +147,15 @@ This project references a variety of resources:
 - **Multimedia Demonstrations**
   - Demo Video: Miss Kobayashi's Dragon Maid: [YouTube Video](https://www.youtube.com/watch?v=NQF3a6A7kcQ)
   - Demo Image: Higurashi 360P from Anime4K [(repo)](https://github.com/bloc97/Anime4K/tree/master)
+
+## Project Info
+This project is part of UPenn CIS5650 final project. Following are related resources:
+
+- [Project Pitch Presentation](https://docs.google.com/presentation/d/1QKqbgSwnxgH9Htm_SM3CYOdL-5bIGNmq2VT5xSiAARs/edit?usp=sharing)
+- [Milestone 1 Presentation](https://docs.google.com/presentation/d/1vmPm16IPomAWMxoYmIAXXQBsLOk9jNHT3xhsdn3K37Q/edit?usp=sharing)
+- [Milestone 2 Presentation](https://docs.google.com/presentation/d/1gor5TFMMb6vhkBVJBjttUPvZFZvytHT6YuLI_zqOfAc/edit?usp=sharing)
+- [Milestone 3 Presentation](https://docs.google.com/presentation/d/1nEbmPhS-CbPhUhzjQtkeCNdFZiAGyXShSNRu5my55iY/edit?usp=sharing)
+- [Final Presentation](https://docs.google.com/presentation/d/1DGrMEzUCkYuYvQE-T6p7vRvCusKvNPK1/edit#slide=id.g1ed29a20d86_4_11)
 
 ## Credits
 
