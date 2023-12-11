@@ -16,7 +16,7 @@ Take a look at our web demo at https://anime4k-webgpu-demo.fly.dev/ ([Source](ht
 
 Note: your browser must support WebGPU. See this [list](https://caniuse.com/webgpu) for compatibility.
 
-We 
+Live demo is deployed at: https://anime4k-webgpu-demo.fly.dev/ with source code in this repo: [Anime4K-Web-Demo](https://github.com/Anime4KWebBoost/Anime4K-Web-Demo)
 
 ## Usage
 
