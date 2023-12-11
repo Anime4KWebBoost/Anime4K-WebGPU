@@ -16,6 +16,8 @@ Take a look at our web demo at https://anime4k-webgpu-demo.fly.dev/ ([Source](ht
 
 Note: your browser must support WebGPU. See this [list](https://caniuse.com/webgpu) for compatibility.
 
+We 
+
 ## Usage
 
 This package contains classes that implements interface `Anime4KPipeline`. To use these classes, first install `anime4k-webgpu` package, then insert proveded pipelines in 3 lines:
@@ -111,15 +113,25 @@ The comparison highlights significant trade-offs between the speed of rendering,
 </div>
 
 ### Run Time Comparisons(GPU)
-Following comparisons are done with 720P video as input. 
+### GPU Time Comparisons
+We conducted comparisons using a video (Demo Video: Miss Kobayashi's Dragon Maid) as our test input. The GPU processing time, measured in milliseconds per frame, was tracked using the GPU performance analysis tool in Chrome. This was achieved by recording a 10-second segment and then calculating the average GPU time per frame. This calculation was done by dividing the total GPU time over 10 seconds by the product of 10 seconds and the video's frame rate.
+
+**1. GPU time for different effects in different graphic cards**
+
+The subsequent comparisons reveal that the GPU processing time for rendering a frame of texture is sufficiently swift for real-time video upscaling across all models with a 720p video input. While the RTX 4090 GPU exhibits a slightly quicker frame rendering time, the performance on the RTX 3070Ti is nearly on par, with both completing the task within 3 milliseconds. Looking ahead, as hardware technology continues to evolve, we anticipate that this project will greatly benefit from utilizing the cross-platform capabilities of WebGPU.
 
 <div align="center">
 <img src='https://drive.google.com/uc?export=view&id=1vjPsHItDaexbXRbnOsa2Wop259mlGX54')/>
 <p>Figure 5. GPU time for different effects (720P)</p>
 </div>
 
+**2. GPU time for different effects with different resolution video inputs**
 
-Following comparisons are done with RTX 3070Ti graphic card. 
+Following comparisons are done with RTX 3070Ti graphic card.
+
+With following plot, it becomes evident that each effect/rendering pipeline display a remarkable consistency in frame rendering time. This observation holds true irrespective of the input video size, indicating a well-optimized rendering process. Notably, the time required to render a single frame across these various effects is sufficiently brief, making it viable for real-time video application of all effects without significant delay.
+
+However, an exception is observed with the upscale GAN x4 when applied to a 1080p video input. In this case, the rendering time significantly increases. This outlier can be attributed to the upscale GAN x4's ambitious task of upscaling the video to an 8K resolution. Such a substantial increase in resolution demands an intense computation, explaining the prolonged rendering time in this particular scenario. This suggests that while the system is generally efficient for real-time applications, certain high-intensity tasks like extreme upscaling to 8K can still pose challenges in maintaining the same level of performance.
 
 <div align="center">
 <img src='https://drive.google.com/uc?export=view&id=1fXaNjpD3M4H48xkoekhj__t6M_kYwhEd')/>
@@ -130,10 +142,12 @@ Following comparisons are done with RTX 3070Ti graphic card.
 
 * Use `read-write` storage texture instead of `write-only` storage texture (Not yet supported in Chrome stable) for lower VRAM usage.
 
+* Enhancing the Pipeline: Currently, our pipelines operate sequentially. As a future enhancement, we plan to restructure the system so that pipelines which are independent of each other can run concurrently, in parallel. This will optimize our process efficiency and performance.
+
 ## Reference
 This project references a variety of resources:
 - **Multimedia Demonstrations**
-  <!-- - Demo Video: Miss Kobayashi's Dragon Maid: [YouTube Video](https://www.youtube.com/watch?v=NQF3a6A7kcQ) -->
+  - Demo Video: Miss Kobayashi's Dragon Maid: [YouTube Video](https://www.youtube.com/watch?v=NQF3a6A7kcQ)
   - Demo Image: Higurashi 360P from Anime4K [(repo)](https://github.com/bloc97/Anime4K/tree/master)
 
 ## Credits
