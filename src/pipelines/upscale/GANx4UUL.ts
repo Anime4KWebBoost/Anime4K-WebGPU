@@ -88,7 +88,7 @@ import overlay2WGSL from '../../shaders/helpers/overlay2.wgsl';
 import Anime4KPipeline from '../Anime4KPipeline';
 import { Conv2d, Overlay } from '../helpers';
 
-export default class GANx4UUL implements Anime4KPipeline {
+export class GANx4UUL implements Anime4KPipeline {
   /**
    * [0-5] conv2d_tf - conv2d_tf5
    * [6-11] conv2d_3_tf - conv2d_3_tf5

@@ -1,3 +1,1 @@
-import UpscaleCNN from './UpscaleCNN';
-
-export { UpscaleCNN };
+export * from './UpscaleCNN';

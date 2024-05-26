@@ -32,7 +32,7 @@ import overlayOutputWGSL from '../../shaders/upscale/GANx3L/overlayOutput.wgsl';
 import Anime4KPipeline from '../Anime4KPipeline';
 import { Conv2d, Overlay } from '../helpers';
 
-export default class GANx3L implements Anime4KPipeline {
+export class GANx3L implements Anime4KPipeline {
   /**
    * pipelines:
    *  [0] conv2d_tf

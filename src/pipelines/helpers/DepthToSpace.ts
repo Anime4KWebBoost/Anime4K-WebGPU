@@ -1,7 +1,7 @@
 import depthToSpaceWGSL from '../../shaders/helpers/depthToSpace.wgsl';
 import Anime4KPipeline from '../Anime4KPipeline';
 
-export default class DepthToSpace implements Anime4KPipeline {
+export class DepthToSpace implements Anime4KPipeline {
   outputTexture: GPUTexture;
 
   pipeline: GPUComputePipeline;

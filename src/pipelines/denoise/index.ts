@@ -1,3 +1,1 @@
-import BilateralMean from './BilateralMean';
-
-export { BilateralMean };
+export * from './BilateralMean';

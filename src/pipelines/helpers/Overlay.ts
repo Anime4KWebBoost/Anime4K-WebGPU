@@ -5,7 +5,7 @@ import Anime4KPipeline from '../Anime4KPipeline';
  * Render Pipeline:
  *      Takes in n input textures output texture.
  */
-export default class Overlay implements Anime4KPipeline {
+export class Overlay implements Anime4KPipeline {
   outputTexture: GPUTexture;
 
   pipeline: GPURenderPipeline;

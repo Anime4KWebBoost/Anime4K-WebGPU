@@ -21,7 +21,7 @@ import overlay2WGSL from '../../shaders/helpers/overlay2.wgsl';
 import Anime4KPipeline from '../Anime4KPipeline';
 import { Conv2d, Overlay } from '../helpers';
 
-export default class GANUUL implements Anime4KPipeline {
+export class GANUUL implements Anime4KPipeline {
   /**
    * pipelines:
    *  [0] conv2d_tf

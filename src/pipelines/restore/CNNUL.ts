@@ -28,7 +28,7 @@ import overlay2WGSL from '../../shaders/helpers/overlay2.wgsl';
 import Anime4KPipeline from '../Anime4KPipeline';
 import { Conv2d, DepthToSpace, Overlay } from '../helpers';
 
-export default class CNNUL implements Anime4KPipeline {
+export class CNNUL implements Anime4KPipeline {
   /**
    *  [0 - 2] conv2d_tf - conv2d_tf2
    *  [3 - 5] conv2d_1_tf - conv2d_1_tf2

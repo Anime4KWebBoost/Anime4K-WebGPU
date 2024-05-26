@@ -4,7 +4,7 @@ import deblurDoGYWGSL from '../../shaders/deblur/DoG/deblurDoGY.wgsl';
 import deblurDoGApplyWGSL from '../../shaders/deblur/DoG/deblurDoGApply.wgsl';
 import Anime4KPipeline from '../Anime4KPipeline';
 
-export default class DoG implements Anime4KPipeline {
+export class DoG implements Anime4KPipeline {
   textures: GPUTexture[];
 
   modules: GPUShaderModule[];

@@ -4,7 +4,7 @@ import Anime4KPipeline from '../Anime4KPipeline';
  * Original pipeline
  *    Output the input texture without any change.
 */
-export default class Original implements Anime4KPipeline {
+export class Original implements Anime4KPipeline {
   outputTexture: GPUTexture;
 
   constructor(inputTexture: GPUTexture) {

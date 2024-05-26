@@ -13,7 +13,7 @@ import overlay2WGSL from '../../shaders/helpers/overlay2.wgsl';
 import Anime4KPipeline from '../Anime4KPipeline';
 import { Conv2d, DepthToSpace, Overlay } from '../helpers';
 
-export default class UpscaleCNN implements Anime4KPipeline {
+export class UpscaleCNN implements Anime4KPipeline {
   textures: GPUTexture[] = [];
 
   pipelines: Anime4KPipeline[] = [];

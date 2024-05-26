@@ -5,7 +5,7 @@ import Anime4KPipeline from '../Anime4KPipeline';
  *    Takes in n input textures output texture. All input textures and output texture
  * have the same dimensions.
 */
-export default class Conv2d implements Anime4KPipeline {
+export class Conv2d implements Anime4KPipeline {
   outputTexture: GPUTexture;
 
   pipeline: GPUComputePipeline;

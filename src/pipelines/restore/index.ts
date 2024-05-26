@@ -1,4 +1,2 @@
-import GANUUL from './GANUUL';
-import CNNUL from './CNNUL';
-
-export { GANUUL, CNNUL };
+export * from './GANUUL';
+export * from './CNNUL';
