@@ -1,8 +1,8 @@
-import luminationWGSL from '../../shaders/deblur/DoG/lumination.wgsl';
-import deblurDoGXWGSL from '../../shaders/deblur/DoG/deblurDoGX.wgsl';
-import deblurDoGYWGSL from '../../shaders/deblur/DoG/deblurDoGY.wgsl';
-import deblurDoGApplyWGSL from '../../shaders/deblur/DoG/deblurDoGApply.wgsl';
-import Anime4KPipeline from '../Anime4KPipeline';
+import Anime4KPipeline from '../../Anime4KPipeline';
+import luminationWGSL from './shaders/lumination.wgsl';
+import deblurDoGXWGSL from './shaders/deblurDoGX.wgsl';
+import deblurDoGYWGSL from './shaders/deblurDoGY.wgsl';
+import deblurDoGApplyWGSL from './shaders/deblurDoGApply.wgsl';
 
 export class DoG implements Anime4KPipeline {
   textures: GPUTexture[];

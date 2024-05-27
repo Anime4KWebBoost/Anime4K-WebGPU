@@ -1,5 +1,5 @@
-import denoiseBilateralMeanWGSL from '../../shaders/denoise/bilateralMean.wgsl';
-import Anime4KPipeline from '../Anime4KPipeline';
+import Anime4KPipeline from '../../Anime4KPipeline';
+import denoiseBilateralMeanWGSL from './shaders/bilateralMean.wgsl';
 
 export class BilateralMean implements Anime4KPipeline {
   texture: GPUTexture;

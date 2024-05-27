@@ -1,5 +1,6 @@
-import vertexWGSL from '../../shaders/helpers/vertex.wgsl';
-import Anime4KPipeline from '../Anime4KPipeline';
+import vertexWGSL from './shaders/vertex.wgsl';
+import Anime4KPipeline from '../../Anime4KPipeline';
+import overlay2WGSL from './shaders/overlay2.wgsl';
 
 /**
  * Render Pipeline:
@@ -19,10 +20,10 @@ export class Overlay implements Anime4KPipeline {
    * @param device - GPUDevice used to create things.
    * @param inputTextures - input textures for render pipeline.
    * @param outputTextureSize - output texture of render pipeline.
-   * @param fragmentWGSL - fragment shader code as string
+   * @param fragmentWGSL - fragment shader code as string, default to overlay2 (overlay 2 textures)
    * @param name - name to identify each instance.
    */
-  constructor(device: GPUDevice, inputTextures: GPUTexture[], outputTextureSize: number[], fragmentWGSL: string, name = 'defaultOverlay') {
+  constructor(device: GPUDevice, inputTextures: GPUTexture[], outputTextureSize: number[], fragmentWGSL = overlay2WGSL, name = 'defaultOverlay') {
     const inputLength = inputTextures.length;
     this.name = name;
 

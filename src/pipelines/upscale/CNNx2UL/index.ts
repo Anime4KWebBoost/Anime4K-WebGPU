@@ -1,31 +1,31 @@
-import conv2dtf from '../../shaders/upscale/CNNx2UL/conv2dtf.wgsl';
-import conv2dtf1 from '../../shaders/upscale/CNNx2UL/conv2dtf1.wgsl';
-import conv2dtf2 from '../../shaders/upscale/CNNx2UL/conv2dtf2.wgsl';
-import conv2d1tf from '../../shaders/upscale/CNNx2UL/conv2d1tf.wgsl';
-import conv2d1tf1 from '../../shaders/upscale/CNNx2UL/conv2d1tf1.wgsl';
-import conv2d1tf2 from '../../shaders/upscale/CNNx2UL/conv2d1tf2.wgsl';
-import conv2d2tf from '../../shaders/upscale/CNNx2UL/conv2d2tf.wgsl';
-import conv2d2tf1 from '../../shaders/upscale/CNNx2UL/conv2d2tf1.wgsl';
-import conv2d2tf2 from '../../shaders/upscale/CNNx2UL/conv2d2tf2.wgsl';
-import conv2d3tf from '../../shaders/upscale/CNNx2UL/conv2d3tf.wgsl';
-import conv2d3tf1 from '../../shaders/upscale/CNNx2UL/conv2d3tf1.wgsl';
-import conv2d3tf2 from '../../shaders/upscale/CNNx2UL/conv2d3tf2.wgsl';
-import conv2d4tf from '../../shaders/upscale/CNNx2UL/conv2d4tf.wgsl';
-import conv2d4tf1 from '../../shaders/upscale/CNNx2UL/conv2d4tf1.wgsl';
-import conv2d4tf2 from '../../shaders/upscale/CNNx2UL/conv2d4tf2.wgsl';
-import conv2d5tf from '../../shaders/upscale/CNNx2UL/conv2d5tf.wgsl';
-import conv2d5tf1 from '../../shaders/upscale/CNNx2UL/conv2d5tf1.wgsl';
-import conv2d5tf2 from '../../shaders/upscale/CNNx2UL/conv2d5tf2.wgsl';
-import conv2d6tf from '../../shaders/upscale/CNNx2UL/conv2d6tf.wgsl';
-import conv2d6tf1 from '../../shaders/upscale/CNNx2UL/conv2d6tf1.wgsl';
-import conv2d6tf2 from '../../shaders/upscale/CNNx2UL/conv2d6tf2.wgsl';
-import conv2dlasttf from '../../shaders/upscale/CNNx2UL/conv2dlasttf.wgsl';
-import conv2dlasttf1 from '../../shaders/upscale/CNNx2UL/conv2dlasttf1.wgsl';
-import conv2dlasttf2 from '../../shaders/upscale/CNNx2UL/conv2dlasttf2.wgsl';
-import overlay2WGSL from '../../shaders/helpers/overlay2.wgsl';
+import conv2dtf from './shaders/conv2dtf.wgsl';
+import conv2dtf1 from './shaders/conv2dtf1.wgsl';
+import conv2dtf2 from './shaders/conv2dtf2.wgsl';
+import conv2d1tf from './shaders/conv2d1tf.wgsl';
+import conv2d1tf1 from './shaders/conv2d1tf1.wgsl';
+import conv2d1tf2 from './shaders/conv2d1tf2.wgsl';
+import conv2d2tf from './shaders/conv2d2tf.wgsl';
+import conv2d2tf1 from './shaders/conv2d2tf1.wgsl';
+import conv2d2tf2 from './shaders/conv2d2tf2.wgsl';
+import conv2d3tf from './shaders/conv2d3tf.wgsl';
+import conv2d3tf1 from './shaders/conv2d3tf1.wgsl';
+import conv2d3tf2 from './shaders/conv2d3tf2.wgsl';
+import conv2d4tf from './shaders/conv2d4tf.wgsl';
+import conv2d4tf1 from './shaders/conv2d4tf1.wgsl';
+import conv2d4tf2 from './shaders/conv2d4tf2.wgsl';
+import conv2d5tf from './shaders/conv2d5tf.wgsl';
+import conv2d5tf1 from './shaders/conv2d5tf1.wgsl';
+import conv2d5tf2 from './shaders/conv2d5tf2.wgsl';
+import conv2d6tf from './shaders/conv2d6tf.wgsl';
+import conv2d6tf1 from './shaders/conv2d6tf1.wgsl';
+import conv2d6tf2 from './shaders/conv2d6tf2.wgsl';
+import conv2dlasttf from './shaders/conv2dlasttf.wgsl';
+import conv2dlasttf1 from './shaders/conv2dlasttf1.wgsl';
+import conv2dlasttf2 from './shaders/conv2dlasttf2.wgsl';
+import overlay2WGSL from '../../helpers/Overlay/shaders/overlay2.wgsl';
 
-import Anime4KPipeline from '../Anime4KPipeline';
-import { Conv2d, DepthToSpace, Overlay } from '../helpers';
+import Anime4KPipeline from '../../Anime4KPipeline';
+import { Conv2d, DepthToSpace, Overlay } from '../../helpers';
 
 export class CNNx2UL implements Anime4KPipeline {
   /**

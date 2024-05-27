@@ -1,4 +1,4 @@
-import Anime4KPipeline from '../Anime4KPipeline';
+import Anime4KPipeline from '../../Anime4KPipeline';
 
 /**
  * Conv2d pipeline

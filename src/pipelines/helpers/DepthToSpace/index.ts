@@ -1,5 +1,5 @@
-import depthToSpaceWGSL from '../../shaders/helpers/depthToSpace.wgsl';
-import Anime4KPipeline from '../Anime4KPipeline';
+import depthToSpaceWGSL from './shaders/depthToSpace.wgsl';
+import Anime4KPipeline from '../../Anime4KPipeline';
 
 export class DepthToSpace implements Anime4KPipeline {
   outputTexture: GPUTexture;
