@@ -127,6 +127,14 @@ export class GANx4UUL implements Anime4KPipeline {
    */
   pipelinesUps: Anime4KPipeline[] = [];
 
+  /**
+   * Creates an instance of GANx4UUL.
+   *
+   * @param {Object} options - The options for the GANx4UUL pipeline.
+   * @param {GPUDevice} options.device - The GPU device to use for
+   * creating textures and shader modules.
+   * @param {GPUTexture} options.inputTexture - The input texture for the pipeline.
+   */
   constructor({
     device,
     inputTexture,

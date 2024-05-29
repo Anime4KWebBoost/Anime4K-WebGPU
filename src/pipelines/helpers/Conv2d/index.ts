@@ -15,12 +15,18 @@ export class Conv2d implements Anime4KPipeline {
   name: string;
 
   /**
-   * Constructor
-   * @param device - GPUDevice used to create things.
-   * @param inputTextures - input textures of the shader.
-   * All textures should have the same dimensions.
-   * @param shaderWGSL - shader file as a string.
-   * @param name - optional name of the instance, identify this conv2d pipeline and easy to debug.
+   * Creates an instance of Conv2d.
+   *
+   * @param {Object} options - The options for the Conv2d pipeline.
+   * @param {GPUDevice} options.device - The GPU device to use for
+   * creating textures and shader modules.
+   * @param {GPUTexture[]} options.inputTextures - The input textures for the pipeline.
+   * All input textures must have the same dimensions.
+   * @param {string} options.shaderWGSL - The shader code in WGSL format.
+   * @param {string} [options.name='conv2d'] - The name of the pipeline. Defaults to 'conv2d'.
+   *
+   * @throws {Error} Will throw an error if no input textures are provided.
+   * @throws {Error} Will throw an error if the shader is not defined.
    */
   constructor({
     device,

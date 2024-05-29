@@ -41,6 +41,14 @@ export class CNNUL implements Anime4KPipeline {
    */
   pipelines: Anime4KPipeline[] = [];
 
+  /**
+   * Creates an instance of CNNUL.
+   *
+   * @param {Object} options - The options for the CNNUL pipeline.
+   * @param {GPUDevice} options.device - The GPU device to use for
+   * creating textures and shader modules.
+   * @param {GPUTexture} options.inputTexture - The input texture for the pipeline.
+   */
   constructor({
     device,
     inputTexture,
