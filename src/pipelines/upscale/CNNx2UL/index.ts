@@ -22,9 +22,8 @@ import conv2d6tf2 from './shaders/conv2d6tf2.wgsl';
 import conv2dlasttf from './shaders/conv2dlasttf.wgsl';
 import conv2dlasttf1 from './shaders/conv2dlasttf1.wgsl';
 import conv2dlasttf2 from './shaders/conv2dlasttf2.wgsl';
-import overlay2WGSL from '../../helpers/Overlay/shaders/overlay2.wgsl';
 
-import Anime4KPipeline from '../../Anime4KPipeline';
+import { Anime4KPipeline, Anime4KPipelineDescriptor } from '../../interfaces';
 import { Conv2d, DepthToSpace, Overlay } from '../../helpers';
 
 export class CNNx2UL implements Anime4KPipeline {
@@ -40,7 +39,10 @@ export class CNNx2UL implements Anime4KPipeline {
    */
   pipelines: Anime4KPipeline[] = [];
 
-  constructor(device: GPUDevice, inputTexture: GPUTexture) {
+  constructor({
+    device,
+    inputTexture,
+  }: Anime4KPipelineDescriptor) {
     const shaders: string[] = [
       conv2dtf, conv2dtf1, conv2dtf2,
       conv2d1tf, conv2d1tf1, conv2d1tf2,
@@ -52,7 +54,12 @@ export class CNNx2UL implements Anime4KPipeline {
       conv2dlasttf, conv2dlasttf1, conv2dlasttf2];
 
     for (let i = 0; i < 3; i += 1) {
-      this.pipelines.push(new Conv2d(device, [inputTexture], shaders[i], `conv2d_tf_${i}`));
+      this.pipelines.push(new Conv2d({
+        device,
+        inputTextures: [inputTexture],
+        shaderWGSL: shaders[i],
+        name: `conv2d_tf_${i}`,
+      }));
     }
 
     const outputTextures: GPUTexture[] = [];
@@ -63,7 +70,12 @@ export class CNNx2UL implements Anime4KPipeline {
       outputTextures.push(this.pipelines[3 * (i - 1) + 2].getOutputTexture());
 
       for (let j = 0; j < 3; j += 1) {
-        this.pipelines.push(new Conv2d(device, outputTextures, shaders[3 * i + j], `conv2d_${i}`));
+        this.pipelines.push(new Conv2d({
+          device,
+          inputTextures: outputTextures,
+          shaderWGSL: shaders[3 * i + j],
+          name: `conv2d_${i}_tf_${j}`,
+        }));
       }
     }
 
@@ -73,11 +85,27 @@ export class CNNx2UL implements Anime4KPipeline {
     }
 
     for (let i = 0; i <= 2; i += 1) {
-      this.pipelines.push(new Conv2d(device, outputTextures, shaders[21 + i], `conv2d_last_tf_${i}`));
+      this.pipelines.push(new Conv2d({
+        device,
+        inputTextures: outputTextures,
+        shaderWGSL: shaders[21 + i],
+        name: `conv2d_last_tf_${i}`,
+      }));
     }
-
-    this.pipelines.push(new DepthToSpace(device, [this.pipelines[21].getOutputTexture(), this.pipelines[22].getOutputTexture(), this.pipelines[23].getOutputTexture()], 'DepthToSpace'));
-    this.pipelines.push(new Overlay(device, [inputTexture, this.pipelines[24].getOutputTexture()], [2 * inputTexture.width, 2 * inputTexture.height], overlay2WGSL, 'Overlay'));
+    this.pipelines.push(new DepthToSpace({
+      device,
+      inputTextures: [
+        this.pipelines[21].getOutputTexture(),
+        this.pipelines[22].getOutputTexture(),
+        this.pipelines[23].getOutputTexture(),
+      ],
+      name: 'DepthToSpace',
+    }));
+    this.pipelines.push(new Overlay({
+      device,
+      inputTextures: [inputTexture, this.pipelines[24].getOutputTexture()],
+      outputTextureSize: [2 * inputTexture.width, 2 * inputTexture.height],
+    }));
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

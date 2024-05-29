@@ -1,5 +1,5 @@
 import vertexWGSL from './shaders/vertex.wgsl';
-import Anime4KPipeline from '../../Anime4KPipeline';
+import { Anime4KPipeline, OverlayPipelineDescriptor } from '../../interfaces';
 import overlay2WGSL from './shaders/overlay2.wgsl';
 
 /**
@@ -23,7 +23,13 @@ export class Overlay implements Anime4KPipeline {
    * @param fragmentWGSL - fragment shader code as string, default to overlay2 (overlay 2 textures)
    * @param name - name to identify each instance.
    */
-  constructor(device: GPUDevice, inputTextures: GPUTexture[], outputTextureSize: number[], fragmentWGSL = overlay2WGSL, name = 'defaultOverlay') {
+  constructor({
+    device,
+    inputTextures,
+    outputTextureSize,
+    fragmentWGSL = overlay2WGSL,
+    name = 'overlay',
+  }: OverlayPipelineDescriptor) {
     const inputLength = inputTextures.length;
     this.name = name;
 

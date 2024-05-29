@@ -1,4 +1,4 @@
-import Anime4KPipeline from '../../Anime4KPipeline';
+import { Anime4KPipeline, OriginalPipelineDescriptor } from '../../interfaces';
 
 /**
  * Original pipeline
@@ -7,7 +7,9 @@ import Anime4KPipeline from '../../Anime4KPipeline';
 export class Original implements Anime4KPipeline {
   outputTexture: GPUTexture;
 
-  constructor(inputTexture: GPUTexture) {
+  constructor({
+    inputTexture,
+  }: OriginalPipelineDescriptor) {
     this.outputTexture = inputTexture;
   }
 

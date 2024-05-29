@@ -1,4 +1,4 @@
-import Anime4KPipeline from '../../Anime4KPipeline';
+import { Anime4KPipeline, Anime4KPipelineDescriptor } from '../../interfaces';
 import luminationWGSL from './shaders/lumination.wgsl';
 import deblurDoGXWGSL from './shaders/deblurDoGX.wgsl';
 import deblurDoGYWGSL from './shaders/deblurDoGY.wgsl';
@@ -27,7 +27,10 @@ export class DoG implements Anime4KPipeline {
 
   device: GPUDevice;
 
-  constructor(device: GPUDevice, inputTexture: GPUTexture) {
+  constructor({
+    device,
+    inputTexture,
+  }: Anime4KPipelineDescriptor) {
     this.device = device;
     this.inputTexWidth = inputTexture.width;
     this.inputTexHeight = inputTexture.height;

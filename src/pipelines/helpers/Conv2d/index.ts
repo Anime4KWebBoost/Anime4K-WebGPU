@@ -1,4 +1,4 @@
-import Anime4KPipeline from '../../Anime4KPipeline';
+import { Anime4KPipeline, Conv2dPipelineDescriptor } from '../../interfaces';
 
 /**
  * Conv2d pipeline
@@ -22,7 +22,12 @@ export class Conv2d implements Anime4KPipeline {
    * @param shaderWGSL - shader file as a string.
    * @param name - optional name of the instance, identify this conv2d pipeline and easy to debug.
    */
-  constructor(device: GPUDevice, inputTextures: GPUTexture[], shaderWGSL: string, name = 'defaultCon2d') {
+  constructor({
+    device,
+    inputTextures,
+    shaderWGSL,
+    name = 'conv2d',
+  }: Conv2dPipelineDescriptor) {
     this.name = name;
     const inputLength = inputTextures.length;
     if (inputLength === 0) {

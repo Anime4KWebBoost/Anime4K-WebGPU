@@ -16,9 +16,8 @@ import conv2d5tf2WGSL from './shaders/conv2d5tf2.wgsl';
 import conv2d6tfWGSL from './shaders/conv2d6tf.wgsl';
 import conv2d6tf1WGSL from './shaders/conv2d6tf1.wgsl';
 import output from './shaders/output.wgsl';
-import overlay2WGSL from '../../helpers/Overlay/shaders/overlay2.wgsl';
 
-import Anime4KPipeline from '../../Anime4KPipeline';
+import { Anime4KPipeline, Anime4KPipelineDescriptor } from '../../interfaces';
 import { Conv2d, Overlay } from '../../helpers';
 
 export class GANUUL implements Anime4KPipeline {
@@ -45,7 +44,10 @@ export class GANUUL implements Anime4KPipeline {
    */
   pipelines: Anime4KPipeline[] = [];
 
-  constructor(device: GPUDevice, inputTexture: GPUTexture) {
+  constructor({
+    device,
+    inputTexture,
+  }: Anime4KPipelineDescriptor) {
     const shaders: string[] = [
       conv2dtfWGSL, conv2dtf1WGSL,
       conv2d1tfWGSL, conv2d1tf1WGSL, conv2d1tf2WGSL,
@@ -57,21 +59,41 @@ export class GANUUL implements Anime4KPipeline {
       output];
 
     // inputTexture -> 0, 1
-    this.pipelines.push(new Conv2d(device, [inputTexture], shaders[0], 'conv2d_tf'));
-    this.pipelines.push(new Conv2d(device, [inputTexture], shaders[1], 'conv2d_tf1'));
+    this.pipelines.push(new Conv2d({
+      device,
+      inputTextures: [inputTexture],
+      shaderWGSL: shaders[0],
+      name: 'conv2d_tf',
+    }));
+    this.pipelines.push(new Conv2d({
+      device,
+      inputTextures: [inputTexture],
+      shaderWGSL: shaders[1],
+      name: 'conv2d_tf1',
+    }));
 
     // 0, 1 -> 2, 3, 4
     const outputTextures: GPUTexture[] = [];
     this.fillOutputTextures(outputTextures, 0, 2);
     for (let i = 0; i < 3; i += 1) {
-      this.pipelines.push(new Conv2d(device, outputTextures, shaders[i + 2], `conv2d_1_tf_${i}`));
+      this.pipelines.push(new Conv2d({
+        device,
+        inputTextures: outputTextures,
+        shaderWGSL: shaders[i + 2],
+        name: `conv2d_1_tf_${i}`,
+      }));
     }
 
     // 2, 3, 4 -> 5, 6
     outputTextures.length = 0;
     this.fillOutputTextures(outputTextures, 2, 3);
     for (let i = 0; i < 2; i += 1) {
-      this.pipelines.push(new Conv2d(device, outputTextures, shaders[i + 5], `conv2d_2_tf_${i}`));
+      this.pipelines.push(new Conv2d({
+        device,
+        inputTextures: outputTextures,
+        shaderWGSL: shaders[i + 5],
+        name: `conv2d_2_tf_${i}`,
+      }));
     }
 
     // 0, 1, 5, 6 -> 7, 8, 9
@@ -79,14 +101,24 @@ export class GANUUL implements Anime4KPipeline {
     this.fillOutputTextures(outputTextures, 0, 2);
     this.fillOutputTextures(outputTextures, 5, 2);
     for (let i = 0; i < 3; i += 1) {
-      this.pipelines.push(new Conv2d(device, outputTextures, shaders[i + 7], `conv2d_3_tf_${i}`));
+      this.pipelines.push(new Conv2d({
+        device,
+        inputTextures: outputTextures,
+        shaderWGSL: shaders[i + 7],
+        name: `conv2d_3_tf_${i}`,
+      }));
     }
 
     // 7, 8, 9 -> 10, 11
     outputTextures.length = 0;
     this.fillOutputTextures(outputTextures, 7, 3);
     for (let i = 0; i < 2; i += 1) {
-      this.pipelines.push(new Conv2d(device, outputTextures, shaders[i + 10], `conv2d_4_tf_${i}`));
+      this.pipelines.push(new Conv2d({
+        device,
+        inputTextures: outputTextures,
+        shaderWGSL: shaders[i + 10],
+        name: `conv2d_4_tf_${i}`,
+      }));
     }
 
     // 5, 6, 10, 11 -> 12, 13, 14
@@ -94,23 +126,41 @@ export class GANUUL implements Anime4KPipeline {
     this.fillOutputTextures(outputTextures, 5, 2);
     this.fillOutputTextures(outputTextures, 10, 2);
     for (let i = 0; i < 3; i += 1) {
-      this.pipelines.push(new Conv2d(device, outputTextures, shaders[i + 12], `conv2d_5_tf_${i}`));
+      this.pipelines.push(new Conv2d({
+        device,
+        inputTextures: outputTextures,
+        shaderWGSL: shaders[i + 12],
+        name: `conv2d_5_tf_${i}`,
+      }));
     }
 
     // 12, 13, 14 -> 15, 16
     outputTextures.length = 0;
     this.fillOutputTextures(outputTextures, 12, 3);
     for (let i = 0; i < 2; i += 1) {
-      this.pipelines.push(new Conv2d(device, outputTextures, shaders[i + 15], `conv2d_6_tf_${i}`));
+      this.pipelines.push(new Conv2d({
+        device,
+        inputTextures: outputTextures,
+        shaderWGSL: shaders[i + 15],
+        name: `conv2d_6_tf_${i}`,
+      }));
     }
 
     // 10, 11, 15, 16 -> output
     outputTextures.length = 0;
     this.fillOutputTextures(outputTextures, 10, 2);
     this.fillOutputTextures(outputTextures, 15, 2);
-    this.pipelines.push(new Conv2d(device, outputTextures, output, 'output'));
-
-    this.pipelines.push(new Overlay(device, [inputTexture, this.pipelines[this.pipelines.length - 1].getOutputTexture()], [inputTexture.width, inputTexture.height], overlay2WGSL, 'Overlay'));
+    this.pipelines.push(new Conv2d({
+      device,
+      inputTextures: outputTextures,
+      shaderWGSL: output,
+      name: 'output',
+    }));
+    this.pipelines.push(new Overlay({
+      device,
+      inputTextures: [inputTexture, this.pipelines[this.pipelines.length - 1].getOutputTexture()],
+      outputTextureSize: [inputTexture.width, inputTexture.height],
+    }));
   }
 
   fillOutputTextures(outputTextures: GPUTexture[], from: number, count: number) {

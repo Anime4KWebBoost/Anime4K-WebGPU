@@ -1,4 +1,4 @@
-import Anime4KPipeline from '../../Anime4KPipeline';
+import { Anime4KPipeline, Anime4KPipelineDescriptor } from '../../interfaces';
 import denoiseBilateralMeanWGSL from './shaders/bilateralMean.wgsl';
 
 export class BilateralMean implements Anime4KPipeline {
@@ -27,7 +27,10 @@ export class BilateralMean implements Anime4KPipeline {
   // passed in by constructor
   device: GPUDevice;
 
-  constructor(device: GPUDevice, inputTexture: GPUTexture) {
+  constructor({
+    device,
+    inputTexture,
+  }: Anime4KPipelineDescriptor) {
     this.device = device;
     this.inputTexWidth = inputTexture.width;
     this.inputTexHeight = inputTexture.height;

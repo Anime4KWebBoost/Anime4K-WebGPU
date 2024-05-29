@@ -1,5 +1,5 @@
 import depthToSpaceWGSL from './shaders/depthToSpace.wgsl';
-import Anime4KPipeline from '../../Anime4KPipeline';
+import { Anime4KPipeline, DepthToSpacePipelineDescriptor } from '../../interfaces';
 
 export class DepthToSpace implements Anime4KPipeline {
   outputTexture: GPUTexture;
@@ -10,7 +10,11 @@ export class DepthToSpace implements Anime4KPipeline {
 
   name: string;
 
-  constructor(device: GPUDevice, inputTextures: GPUTexture[], name = 'defaultDepthToSpace') {
+  constructor({
+    device,
+    inputTextures,
+    name = 'depth to space',
+  }: DepthToSpacePipelineDescriptor) {
     // sanity check
     if (inputTextures.length !== 3) {
       throw Error(`expect 3 textures for depth2Space, got ${inputTextures.length}`);

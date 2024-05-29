@@ -81,11 +81,9 @@ import overlayConv1ups2WGSL from './shaders/overlayConv1ups2.wgsl';
 import overlayConv1ups3WGSL from './shaders/overlayConv1ups3.wgsl';
 import overlayConv1ups4WGSL from './shaders/overlayConv1ups4.wgsl';
 import overlayConv1ups5WGSL from './shaders/overlayConv1ups5.wgsl';
-
 import output from './shaders/output.wgsl';
-import overlay2WGSL from '../../helpers/Overlay/shaders/overlay2.wgsl';
 
-import Anime4KPipeline from '../../Anime4KPipeline';
+import { Anime4KPipeline, Anime4KPipelineDescriptor } from '../../interfaces';
 import { Conv2d, Overlay } from '../../helpers';
 
 export class GANx4UUL implements Anime4KPipeline {
@@ -129,7 +127,10 @@ export class GANx4UUL implements Anime4KPipeline {
    */
   pipelinesUps: Anime4KPipeline[] = [];
 
-  constructor(device: GPUDevice, inputTexture: GPUTexture) {
+  constructor({
+    device,
+    inputTexture,
+  }: Anime4KPipelineDescriptor) {
     const shaders6: string[] = [
       conv2dtfWGSL, conv2dtf1WGSL, conv2dtf2WGSL,
       conv2dtf3WGSL, conv2dtf4WGSL, conv2dtf5WGSL,
@@ -172,7 +173,13 @@ export class GANx4UUL implements Anime4KPipeline {
 
     let len = this.pipelines6.length;
     for (let i = 0; i < 6; i += 1) {
-      this.pipelines6.push(new Conv2d(device, [inputTexture], shaders6[i], `conv2d_tf${i}`));
+      // device, [inputTexture], shaders6[i], `conv2d_tf${i}`
+      this.pipelines6.push(new Conv2d({
+        device,
+        inputTextures: [inputTexture],
+        shaderWGSL: shaders6[i],
+        name: `conv2d_tf_${i}`,
+      }));
     }
 
     const outputTextures: GPUTexture[] = [];
@@ -180,19 +187,37 @@ export class GANx4UUL implements Anime4KPipeline {
       outputTextures.length = 0;
       this.fillOutputTexturesFromPipeline6(outputTextures, len, 6);
       for (let j = 0; j < 2; j += 1) {
-        this.pipelines.push(new Conv2d(device, outputTextures, shaders[j + 2 * i], `conv2d_${j + 3 * i + 1}_tf`));
+        // device, outputTextures, shaders[j + 2 * i], `conv2d_${j + 3 * i + 1}_tf`
+        this.pipelines.push(new Conv2d({
+          device,
+          inputTextures: outputTextures,
+          shaderWGSL: shaders[j + 2 * i],
+          name: `conv2d_${j + 3 * i + 1}_tf`,
+        }));
       }
 
       this.addOutputTexturesFromPipeline(outputTextures);
       len = this.pipelines6.length;
       for (let j = 0; j < 6; j += 1) {
-        this.pipelines6.push(new Conv2d(device, outputTextures, shaders6[len + j], `conv2d_${3 * (i + 1)}_tf${j}`));
+        // device, outputTextures, shaders6[len + j], `conv2d_${3 * (i + 1)}_tf${j}`
+        this.pipelines6.push(new Conv2d({
+          device,
+          inputTextures: outputTextures,
+          shaderWGSL: shaders6[len + j],
+          name: `conv2d_${3 * (i + 1)}_tf${j}`,
+        }));
       }
     }
 
     outputTextures.length = 0;
     this.fillOutputTexturesFromPipeline6(outputTextures, 48, 6);
-    this.pipelines.push(new Conv2d(device, outputTextures, shaders[shaders.length - 1], 'conv2d_25_tf'));
+    // device, outputTextures, shaders[shaders.length - 1], 'conv2d_25_tf'
+    this.pipelines.push(new Conv2d({
+      device,
+      inputTextures: outputTextures,
+      shaderWGSL: shaders[shaders.length - 1],
+      name: 'conv2d_25_tf',
+    }));
 
     outputTextures.push(this.pipelines[15].getOutputTexture());
     for (let i = 0; i < 15; i += 1) {
@@ -203,7 +228,13 @@ export class GANx4UUL implements Anime4KPipeline {
     outputTextures.push(this.pipelines[this.pipelines.length - 1].getOutputTexture());
 
     for (let i = 0; i < 6; i += 1) {
-      this.pipelinesUps.push(new Conv2d(device, outputTextures, shadersUps[i], `conv0ups${i}`));
+      // device, outputTextures, shadersUps[i], `conv0ups${i}`
+      this.pipelinesUps.push(new Conv2d({
+        device,
+        inputTextures: outputTextures,
+        shaderWGSL: shadersUps[i],
+        name: `conv0ups${i}`,
+      }));
     }
 
     outputTextures.length = 0;
@@ -212,19 +243,41 @@ export class GANx4UUL implements Anime4KPipeline {
     }
 
     for (let i = 0; i < 6; i += 1) {
-      this.pipelinesUps.push(new Overlay(device, outputTextures, [4 * inputTexture.width, 4 * inputTexture.height], shadersUps[i + 6], `overlay_conv1ups${i}`));
+      // device, outputTextures, [4 * inputTexture.width, 4 * inputTexture.height],
+      // shadersUps[i + 6], `overlay_conv1ups${i}`
+      this.pipelinesUps.push(new Overlay({
+        device,
+        inputTextures: outputTextures,
+        outputTextureSize: [4 * inputTexture.width, 4 * inputTexture.height],
+        fragmentWGSL: shadersUps[i + 6],
+        name: `overlay_conv1ups${i}`,
+      }));
     }
 
     outputTextures.length = 0;
     for (let i = 6; i < this.pipelinesUps.length; i += 1) {
       outputTextures.push(this.pipelinesUps[i].getOutputTexture());
     }
-
-    this.pipelinesUps.push(new Conv2d(device, outputTextures, output, 'output'));
-    this.pipelinesUps.push(new Overlay(device, [this.pipelinesUps[this.pipelinesUps.length - 1].getOutputTexture(), inputTexture], [4 * inputTexture.width, 4 * inputTexture.height], overlay2WGSL, 'Overlay'));
+    // device, outputTextures, output, 'output'
+    this.pipelinesUps.push(new Conv2d({
+      device,
+      inputTextures: outputTextures,
+      shaderWGSL: output,
+      name: 'output',
+    }));
+    // device, [this.pipelinesUps[this.pipelinesUps.length - 1].getOutputTexture(), inputTexture],
+    // [4 * inputTexture.width, 4 * inputTexture.height], overlay2WGSL, 'Overlay'
+    this.pipelinesUps.push(new Overlay({
+      device,
+      inputTextures: [
+        this.pipelinesUps[this.pipelinesUps.length - 1].getOutputTexture(),
+        inputTexture,
+      ],
+      outputTextureSize: [4 * inputTexture.width, 4 * inputTexture.height],
+    }));
   }
 
-  fillOutputTexturesFromPipeline6(
+  private fillOutputTexturesFromPipeline6(
     outputTextures: GPUTexture[],
     from: number,
     count: number,
@@ -234,7 +287,7 @@ export class GANx4UUL implements Anime4KPipeline {
     }
   }
 
-  addOutputTexturesFromPipeline(outputTextures: GPUTexture[]) {
+  private addOutputTexturesFromPipeline(outputTextures: GPUTexture[]) {
     const len = this.pipelines.length;
     outputTextures.push(this.pipelines[len - 1].getOutputTexture());
     for (let i = 0; i < len; i += 1) {
