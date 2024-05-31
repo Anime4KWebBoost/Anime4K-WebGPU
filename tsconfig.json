@@ -9,7 +9,7 @@
     "strict": true,
     "esModuleInterop": true,
     "types": ["@webgpu/types", "node"],
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "moduleResolution": "node"
   },
   "include": ["src/**/*"],
