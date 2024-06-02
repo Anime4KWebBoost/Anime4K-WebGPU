@@ -45,6 +45,13 @@ export interface OverlayPipelineDescriptor {
   name?: string;
 }
 
+export interface DownscalePipelineDescriptor {
+  device: GPUDevice;
+  inputTexture: GPUTexture;
+  ratio: number;
+  name?: string;
+}
+
 export interface Anime4KPipelineDescriptor extends OriginalPipelineDescriptor {
   device: GPUDevice;
 }

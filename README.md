@@ -99,6 +99,39 @@ pipeline.updateParam('strength', 3.0);
 
 The input texture must have usage `TEXTURE_BINDING`, and the output texture has `TEXTURE_BINDING | RENDER_ATTACHMENT | STORAGE_BINDING` to be used in render pipelines. You can also have multiple pipelines in tandem to achieve sophisticated effects.
 
+### Supported Pipelines
+
+This package currently support the following pipelines and presets (items marked as ❌ are still in progress):
+
+* Deblur
+  * ✅ DoG
+* Denoise
+  * ✅ BilateralMean
+* Restore
+  * ❌ CNNM
+  * ❌ CNNSoftM
+  * ❌ CNNSoftVL
+  * ❌ CNNVL
+  * ✅ CNNUL
+  * ✅ GANUUL
+* Upscale
+  * ❌ CNNx2M
+  * ❌ CNNx2VL
+  * ❌ DenoiseCNNx2VL
+  * ✅ CNNx2UL
+  * ✅ GANx3L
+  * ✅ GANx4UUL
+* Other Helpers
+  * ✅ AutoDownscalePre
+  * ❌ Clamp_Highlights
+* Preset Collections
+  * ❌ ModeA
+  * ❌ ModeB
+  * ❌ ModeC
+  * ❌ ModeAA
+  * ❌ ModeBB
+  * ❌ ModeCA
+
 ## Performance Analysis
 ### Visualization Comparisons
 Following comparisons are done with a 360p image as input. The image is from Anime4K repo.
