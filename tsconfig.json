@@ -13,5 +13,5 @@
     "moduleResolution": "node"
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "lib", "**/*.spec.ts", "conversion"]
+  "exclude": ["node_modules", "lib", "**/*.spec.ts", "conversion", "examples"]
 }

@@ -18,6 +18,45 @@ Note: your browser must support WebGPU. See this [list](https://caniuse.com/webg
 
 ## Usage
 
+There are 2 ways to use this package:
+
+### 1. Render Wrapper
+
+This is for frontend devs who do not wish to tap into webGPU too much. An React example can be found [here](./examples/react-renderer.tsx).
+
+You only need the `render` function which will setup all the rendering from a video element to a canvas element:
+
+```typescript
+import { CNNx2UL, GANUUL, render } from 'anime4k-webgpu';
+
+await render({
+  // your source video HTMLElement
+  video,
+  // your render destination canvas HTMLElement
+  canvas,
+  // your function to build custom pipeline
+  // return all pipelines in order of execution
+  // e.g. inputTexture(video) -> CNNx2UL -> GANUUL -> (canvas)
+  pipelineBuilder: (device, inputTexture) => {
+    const upscale = new CNNx2UL({
+      device,
+      inputTexture,
+    });
+    const restore = new GANUUL({
+      device,
+      inputTexture: upscale.getOutputTexture(),
+    });
+    return [upscale, restore];
+  },
+});
+```
+
+In this example, the input texture will go through a `CNNx2UL` for upscaling, and then a `GANUUL` for restore. You will build your custom pipeline in the `pipelineBuilder` function.
+
+### 2. WebGPU Pipelines
+
+If you already have a webGPU render pipeline setup and would like to use Anime4K on an existing texture, 
+
 This package contains classes that implements interface `Anime4KPipeline`. To use these classes, first install `anime4k-webgpu` package, then insert proveded pipelines in 4 lines:
 
 ```typescript
@@ -28,7 +67,10 @@ import { Anime4KPipeline, CNNx2UL } from 'anime4k-webgpu';
 const inputTexture: GPUTexture;
 
 // +++ instantiate pipeline +++
-const pipeline: Anime4KPipeline = new CNNx2UL(device, inputTexture);
+const pipeline: Anime4KPipeline = new CNNx2UL({
+  device,
+  inputTexture
+});
 
 // bind (upscaled) output texture wherever you want e.g. render pipeline
 const renderBindGroup = device.createBindGroup({
