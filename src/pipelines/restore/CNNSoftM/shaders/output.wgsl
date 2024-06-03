@@ -2,15 +2,14 @@
 // Name: output
 // Inputs: ['MAIN', 'conv2d_tf', 'conv2d_1_tf', 'conv2d_2_tf', 'conv2d_3_tf', 'conv2d_4_tf', 'conv2d_5_tf', 'conv2d_6_tf']
 // Output: output
-@group(0) @binding(0) var MAIN_tex: texture_2d<f32>;
-@group(0) @binding(1) var conv2d_tf_tex: texture_2d<f32>;
-@group(0) @binding(2) var conv2d_1_tf_tex: texture_2d<f32>;
-@group(0) @binding(3) var conv2d_2_tf_tex: texture_2d<f32>;
-@group(0) @binding(4) var conv2d_3_tf_tex: texture_2d<f32>;
-@group(0) @binding(5) var conv2d_4_tf_tex: texture_2d<f32>;
-@group(0) @binding(6) var conv2d_5_tf_tex: texture_2d<f32>;
-@group(0) @binding(7) var conv2d_6_tf_tex: texture_2d<f32>;
-@group(0) @binding(8) var output_tex: texture_storage_2d<rgba16float, write>;
+@group(0) @binding(0) var conv2d_tf_tex: texture_2d<f32>;
+@group(0) @binding(1) var conv2d_1_tf_tex: texture_2d<f32>;
+@group(0) @binding(2) var conv2d_2_tf_tex: texture_2d<f32>;
+@group(0) @binding(3) var conv2d_3_tf_tex: texture_2d<f32>;
+@group(0) @binding(4) var conv2d_4_tf_tex: texture_2d<f32>;
+@group(0) @binding(5) var conv2d_5_tf_tex: texture_2d<f32>;
+@group(0) @binding(6) var conv2d_6_tf_tex: texture_2d<f32>;
+@group(0) @binding(7) var output_tex: texture_storage_2d<rgba16float, write>;
 fn max4(vector: vec4f, value: f32) -> vec4f {
   return max(vector, vec4f(value));
 }
