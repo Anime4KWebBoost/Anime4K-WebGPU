@@ -6,7 +6,6 @@ import conv2d4tfWGSL from './shaders/conv2d4tf.wgsl';
 import conv2d5tfWGSL from './shaders/conv2d5tf.wgsl';
 import conv2d6tfWGSL from './shaders/conv2d6tf.wgsl';
 import conv2dlasttfWGSL from './shaders/conv2dlasttf.wgsl';
-import output from './shaders/output.wgsl';
 
 import { Anime4KPipeline, Anime4KPipelineDescriptor } from '../../interfaces';
 import { Conv2d, DepthToSpace, Overlay } from '../../helpers';
