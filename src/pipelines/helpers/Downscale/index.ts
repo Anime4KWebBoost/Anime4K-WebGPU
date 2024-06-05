@@ -14,17 +14,15 @@ export class Downscale implements Anime4KPipeline {
   constructor({
     device,
     inputTexture,
-    ratio,
+    targetDimensions,
     name = 'downscale',
   }: DownscalePipelineDescriptor) {
     this.name = name;
 
     // output texture
-    const width = inputTexture.width / ratio;
-    const height = inputTexture.height / ratio;
     this.outputTexture = device.createTexture({
       label: `${name} output texture`,
-      size: [width, height, 1],
+      size: [targetDimensions.width, targetDimensions.height, 1],
       format: 'rgba16float',
       usage: GPUTextureUsage.TEXTURE_BINDING
       | GPUTextureUsage.RENDER_ATTACHMENT
