@@ -48,10 +48,21 @@ export interface OverlayPipelineDescriptor {
 export interface DownscalePipelineDescriptor {
   device: GPUDevice;
   inputTexture: GPUTexture;
-  ratio: number;
+  targetDimensions: { width: number; height: number };
+  name?: string;
+}
+
+export interface ClampHighlightsPipelineDescriptor {
+  device: GPUDevice;
+  inputTexture: GPUTexture;
   name?: string;
 }
 
 export interface Anime4KPipelineDescriptor extends OriginalPipelineDescriptor {
   device: GPUDevice;
+}
+
+export interface Anime4KPresetPipelineDescriptor extends Anime4KPipelineDescriptor {
+  nativeDimensions: { width: number; height: number };
+  targetDimensions: { width: number; height: number };
 }
