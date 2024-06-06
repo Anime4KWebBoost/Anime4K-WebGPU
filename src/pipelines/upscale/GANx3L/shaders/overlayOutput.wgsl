@@ -80,5 +80,5 @@ fn main(@location(0) fragUV: vec2<f32>) -> @location(0) vec4<f32> {
   result += vec4f(-0.0007544955, -0.0007692414, 0.00032997545, 0.0);
   result += colorAt(fragUV);
 
-  return result;
+  return clamp(result, vec4<f32>(0., 0., 0., 0.), vec4<f32>(1., 1., 1., 1.));
 }
