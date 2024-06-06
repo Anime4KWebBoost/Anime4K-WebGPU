@@ -108,29 +108,29 @@ This package currently support the following pipelines and presets (items marked
 * Denoise
   * ✅ BilateralMean
 * Restore
-  * ❌ CNNM
-  * ❌ CNNSoftM
-  * ❌ CNNSoftVL
-  * ❌ CNNVL
+  * ✅ CNNM
+  * ✅ CNNSoftM
+  * ✅ CNNSoftVL
+  * ✅ CNNVL
   * ✅ CNNUL
   * ✅ GANUUL
 * Upscale
-  * ❌ CNNx2M
-  * ❌ CNNx2VL
-  * ❌ DenoiseCNNx2VL
+  * ✅ CNNx2M
+  * ✅ CNNx2VL
+  * ✅ DenoiseCNNx2VL
   * ✅ CNNx2UL
   * ✅ GANx3L
   * ✅ GANx4UUL
 * Other Helpers
   * ✅ AutoDownscalePre
-  * ❌ Clamp_Highlights
-* Preset Collections
-  * ❌ ModeA
-  * ❌ ModeB
-  * ❌ ModeC
-  * ❌ ModeAA
-  * ❌ ModeBB
-  * ❌ ModeCA
+  * ✅ ClampHighlights
+* Preset Collections (see also [link](https://github.com/bloc97/Anime4K/blob/master/md/GLSL_Instructions_Advanced.md))
+  * ✅ ModeA
+  * ✅ ModeB
+  * ✅ ModeC
+  * ✅ ModeAA
+  * ✅ ModeBB
+  * ✅ ModeCA
 
 ## Performance Analysis
 ### Visualization Comparisons
