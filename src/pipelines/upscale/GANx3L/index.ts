@@ -80,21 +80,18 @@ export class GANx3L implements Anime4KPipeline {
     device,
     inputTexture,
   }: Anime4KPipelineDescriptor) {
-    // device, [inputTexture], conv2d0tf0WGSL, 'conv2d_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: [inputTexture],
       shaderWGSL: conv2d0tf0WGSL,
       name: 'conv2d_tf',
     }));
-    // device, [inputTexture], conv2d0tf1WGSL, 'conv2d_tf1'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: [inputTexture],
       shaderWGSL: conv2d0tf1WGSL,
       name: 'conv2d_tf1',
     }));
-    // device, [inputTexture], conv2d0tf2WGSL, 'conv2d_tf2'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: [inputTexture],
@@ -104,14 +101,12 @@ export class GANx3L implements Anime4KPipeline {
 
     const outputTextures: GPUTexture[] = [];
     this.fillOutputTextures(outputTextures, 0, 3);
-    // device, outputTextures, conv2d2tfWGSL, 'conv2d_2_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d2tfWGSL,
       name: 'conv2d_2_tf',
     }));
-    // device, outputTextures, conv2d1tfWGSL, 'conv2d_1_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -121,21 +116,18 @@ export class GANx3L implements Anime4KPipeline {
 
     outputTextures.push(this.pipelines[3].getOutputTexture());
     outputTextures.push(this.pipelines[4].getOutputTexture());
-    // device, outputTextures, conv2d3tf0WGSL, 'conv2d_3_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d3tf0WGSL,
       name: 'conv2d_3_tf',
     }));
-    // device, outputTextures, conv2d3tf1WGSL, 'conv2d_3_tf1'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d3tf1WGSL,
       name: 'conv2d_3_tf1',
     }));
-    // device, outputTextures, conv2d3tf2WGSL, 'conv2d_3_tf2'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -145,14 +137,12 @@ export class GANx3L implements Anime4KPipeline {
 
     outputTextures.length = 0;
     this.fillOutputTextures(outputTextures, 5, 3);
-    // device, outputTextures, conv2d5tfWGSL, 'conv2d_5_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d5tfWGSL,
       name: 'conv2d_5_tf',
     }));
-    // device, outputTextures, conv2d4tfWGSL, 'conv2d_4_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -163,21 +153,18 @@ export class GANx3L implements Anime4KPipeline {
     outputTextures.push(this.pipelines[8].getOutputTexture());
     outputTextures.push(this.pipelines[4].getOutputTexture());
     outputTextures.push(this.pipelines[9].getOutputTexture());
-    // device, outputTextures, conv2d6tf0WGSL, 'conv2d_6_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d6tf0WGSL,
       name: 'conv2d_6_tf',
     }));
-    // device, outputTextures, conv2d6tf1WGSL, 'conv2d_6_tf1'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d6tf1WGSL,
       name: 'conv2d_6_tf1',
     }));
-    // device, outputTextures, conv2d6tf2WGSL, 'conv2d_6_tf2'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -187,14 +174,12 @@ export class GANx3L implements Anime4KPipeline {
 
     outputTextures.length = 0;
     this.fillOutputTextures(outputTextures, 10, 3);
-    // device, outputTextures, conv2d8tfWGSL, 'conv2d_8_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d8tfWGSL,
       name: 'conv2d_8_tf',
     }));
-    // device, outputTextures, conv2d7tfWGSL, 'conv2d_7_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -206,21 +191,18 @@ export class GANx3L implements Anime4KPipeline {
     outputTextures.push(this.pipelines[4].getOutputTexture());
     outputTextures.push(this.pipelines[9].getOutputTexture());
     outputTextures.push(this.pipelines[14].getOutputTexture());
-    // device, outputTextures, conv2d9tf0WGSL, 'conv2d_9_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d9tf0WGSL,
       name: 'conv2d_9_tf',
     }));
-    // device, outputTextures, conv2d9tf1WGSL, 'conv2d_9_tf1'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d9tf1WGSL,
       name: 'conv2d_9_tf1',
     }));
-    // device, outputTextures, conv2d9tf2WGSL, 'conv2d_9_tf2'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -230,14 +212,12 @@ export class GANx3L implements Anime4KPipeline {
 
     outputTextures.length = 0;
     this.fillOutputTextures(outputTextures, 15, 3);
-    // device, outputTextures, conv2d11tfWGSL, 'conv2d_11_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d11tfWGSL,
       name: 'conv2d_11_tf',
     }));
-    // device, outputTextures, conv2d10tfWGSL, 'conv2d_10_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -250,21 +230,18 @@ export class GANx3L implements Anime4KPipeline {
     outputTextures.push(this.pipelines[9].getOutputTexture());
     outputTextures.push(this.pipelines[14].getOutputTexture());
     outputTextures.push(this.pipelines[19].getOutputTexture());
-    // device, outputTextures, conv2d12tf0WGSL, 'conv2d_12_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d12tf0WGSL,
       name: 'conv2d_12_tf',
     }));
-    // device, outputTextures, conv2d12tf1WGSL, 'conv2d_12_tf1'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv2d12tf1WGSL,
       name: 'conv2d_12_tf1',
     }));
-    // device, outputTextures, conv2d12tf2WGSL, 'conv2d_12_tf2'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -274,7 +251,6 @@ export class GANx3L implements Anime4KPipeline {
 
     outputTextures.length = 0;
     this.fillOutputTextures(outputTextures, 20, 3);
-    // device, outputTextures, conv2d13tfWGSL, 'conv2d_13_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -288,21 +264,18 @@ export class GANx3L implements Anime4KPipeline {
     outputTextures.push(this.pipelines[14].getOutputTexture());
     outputTextures.push(this.pipelines[19].getOutputTexture());
     outputTextures.push(this.pipelines[23].getOutputTexture());
-    // device, outputTextures, conv0ups0WGSL, 'conv0ups'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv0ups0WGSL,
       name: 'conv0ups',
     }));
-    // device, outputTextures, conv0ups1WGSL, 'conv0ups1'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: conv0ups1WGSL,
       name: 'conv0ups1',
     }));
-    // device, outputTextures, conv0ups2WGSL, 'conv0ups2'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -312,8 +285,6 @@ export class GANx3L implements Anime4KPipeline {
 
     outputTextures.length = 0;
     this.fillOutputTextures(outputTextures, 24, 3);
-    // device, outputTextures, [3 * inputTexture.width, 3 * inputTexture.height],
-    // overlayConv1ups0WGSL, 'conv1ups'
     this.pipelines.push(new Overlay({
       device,
       inputTextures: outputTextures,
@@ -321,8 +292,6 @@ export class GANx3L implements Anime4KPipeline {
       fragmentWGSL: overlayConv1ups0WGSL,
       name: 'conv1ups',
     }));
-    // device, outputTextures, [3 * inputTexture.width, 3 * inputTexture.height],
-    // overlayConv1ups1WGSL, 'conv1ups1'
     this.pipelines.push(new Overlay({
       device,
       inputTextures: outputTextures,
@@ -330,9 +299,6 @@ export class GANx3L implements Anime4KPipeline {
       fragmentWGSL: overlayConv1ups1WGSL,
       name: 'conv1ups1',
     }));
-    // device, [this.pipelines[27].getOutputTexture(),
-    // this.pipelines[28].getOutputTexture(), inputTexture],
-    // [3 * inputTexture.width, 3 * inputTexture.height], overlayOutputWGSL, 'output'
     this.pipelines.push(new Overlay({
       device,
       inputTextures: [

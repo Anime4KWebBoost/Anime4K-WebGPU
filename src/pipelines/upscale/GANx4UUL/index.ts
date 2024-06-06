@@ -181,7 +181,6 @@ export class GANx4UUL implements Anime4KPipeline {
 
     let len = this.pipelines6.length;
     for (let i = 0; i < 6; i += 1) {
-      // device, [inputTexture], shaders6[i], `conv2d_tf${i}`
       this.pipelines6.push(new Conv2d({
         device,
         inputTextures: [inputTexture],
@@ -195,7 +194,6 @@ export class GANx4UUL implements Anime4KPipeline {
       outputTextures.length = 0;
       this.fillOutputTexturesFromPipeline6(outputTextures, len, 6);
       for (let j = 0; j < 2; j += 1) {
-        // device, outputTextures, shaders[j + 2 * i], `conv2d_${j + 3 * i + 1}_tf`
         this.pipelines.push(new Conv2d({
           device,
           inputTextures: outputTextures,
@@ -207,7 +205,6 @@ export class GANx4UUL implements Anime4KPipeline {
       this.addOutputTexturesFromPipeline(outputTextures);
       len = this.pipelines6.length;
       for (let j = 0; j < 6; j += 1) {
-        // device, outputTextures, shaders6[len + j], `conv2d_${3 * (i + 1)}_tf${j}`
         this.pipelines6.push(new Conv2d({
           device,
           inputTextures: outputTextures,
@@ -219,7 +216,6 @@ export class GANx4UUL implements Anime4KPipeline {
 
     outputTextures.length = 0;
     this.fillOutputTexturesFromPipeline6(outputTextures, 48, 6);
-    // device, outputTextures, shaders[shaders.length - 1], 'conv2d_25_tf'
     this.pipelines.push(new Conv2d({
       device,
       inputTextures: outputTextures,
@@ -236,7 +232,6 @@ export class GANx4UUL implements Anime4KPipeline {
     outputTextures.push(this.pipelines[this.pipelines.length - 1].getOutputTexture());
 
     for (let i = 0; i < 6; i += 1) {
-      // device, outputTextures, shadersUps[i], `conv0ups${i}`
       this.pipelinesUps.push(new Conv2d({
         device,
         inputTextures: outputTextures,
@@ -251,8 +246,6 @@ export class GANx4UUL implements Anime4KPipeline {
     }
 
     for (let i = 0; i < 6; i += 1) {
-      // device, outputTextures, [4 * inputTexture.width, 4 * inputTexture.height],
-      // shadersUps[i + 6], `overlay_conv1ups${i}`
       this.pipelinesUps.push(new Overlay({
         device,
         inputTextures: outputTextures,
@@ -266,15 +259,12 @@ export class GANx4UUL implements Anime4KPipeline {
     for (let i = 6; i < this.pipelinesUps.length; i += 1) {
       outputTextures.push(this.pipelinesUps[i].getOutputTexture());
     }
-    // device, outputTextures, output, 'output'
     this.pipelinesUps.push(new Conv2d({
       device,
       inputTextures: outputTextures,
       shaderWGSL: output,
       name: 'output',
     }));
-    // device, [this.pipelinesUps[this.pipelinesUps.length - 1].getOutputTexture(), inputTexture],
-    // [4 * inputTexture.width, 4 * inputTexture.height], overlay2WGSL, 'Overlay'
     this.pipelinesUps.push(new Overlay({
       device,
       inputTextures: [
