@@ -22,7 +22,7 @@ There are 2 ways to use this package:
 
 ### 1. Render Wrapper
 
-This is for frontend devs who do not wish to tap into webGPU too much. An React example can be found [here](./examples/react-renderer.tsx).
+This is for frontend devs who do not wish to tap into WebGPU too much. An React example can be found [here](./examples/react-renderer.tsx).
 
 You only need the `render` function which will setup all the rendering from a video element to a canvas element:
 
@@ -51,7 +51,34 @@ await render({
 });
 ```
 
-In this example, the input texture will go through a `CNNx2UL` for upscaling, and then a `GANUUL` for restore. You will build your custom pipeline in the `pipelineBuilder` function.
+In the upper example, the input texture (vide) will go through a `CNNx2UL` for upscaling, and then a `GANUUL` for restore, before it is rendered to the canvas. You will build your custom pipeline in the `pipelineBuilder` function.
+
+Alternativey, to use a [preset mode](https://github.com/bloc97/Anime4K/blob/master/md/GLSL_Instructions_Advanced.md), native texture resolution and render target resolution are needed to setup the correct pipeline combinations:
+
+```typescript
+import { ModeA, render } from 'anime4k-webgpu';
+
+await render({
+  video,
+  canvas,
+  // inputTexture(video) -> Mode A -> (canvas)
+  pipelineBuilder: (device, inputTexture) => {
+    const preset = new ModeA({
+      device,
+      inputTexture,
+      nativeDimensions: {
+        width: video.videoWidth,
+        height: video.videoHeight,
+      },
+      targetDimensions: {
+        width: canvas.width,
+        height: canvas.height,
+      }
+    })
+    return [preset];
+  },
+});
+```
 
 ### 2. WebGPU Pipelines
 
@@ -124,7 +151,7 @@ This package currently support the following pipelines and presets (items marked
 * Other Helpers
   * ✅ AutoDownscalePre
   * ✅ ClampHighlights
-* Preset Collections (see also [link](https://github.com/bloc97/Anime4K/blob/master/md/GLSL_Instructions_Advanced.md))
+* Preset Mode Collections (see also [link](https://github.com/bloc97/Anime4K/blob/master/md/GLSL_Instructions_Advanced.md))
   * ✅ ModeA
   * ✅ ModeB
   * ✅ ModeC
