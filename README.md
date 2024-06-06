@@ -4,8 +4,8 @@ University of Pennsylvania, CIS 565: GPU Programming and Architecture, Final Pro
 
 Authors (alphabetical order with equal contribution):
 * Ruijun(Daniel) Zhong [LinkedIn](https://www.linkedin.com/in/daniel-z-73158b152/) | [Personal Website](https://www.danielzhongportfolio.com/)
-* Tong Hu  [LinkedIn](https://www.linkedin.com/in/tong-hu-5819a122a/) 
-* Yuanqi Wang [LinkedIn](https://www.linkedin.com/in/yuanqi-wang-414b26106/) | [GitHub](https://github.com/plasmas)
+* Tong Hu  [LinkedIn](https://www.linkedin.com/in/tong-hu-5819a122a/) | [Personal Website](https://www.tong-hu.com/)
+* Yuanqi Wang [LinkedIn](https://www.linkedin.com/in/yuanqi-wang-414b26106/) | [GitHub](https://github.com/plasmas) | [Personal Website](https://www.yqwong.com/)
 
 ## Introduction
 ![image](images/intro.gif)
