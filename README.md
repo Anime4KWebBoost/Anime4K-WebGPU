@@ -4,8 +4,8 @@ University of Pennsylvania, CIS 565: GPU Programming and Architecture, Final Pro
 
 Authors (alphabetical order with equal contribution):
 * Ruijun(Daniel) Zhong [LinkedIn](https://www.linkedin.com/in/daniel-z-73158b152/) | [Personal Website](https://www.danielzhongportfolio.com/)
-* Tong Hu  [LinkedIn](https://www.linkedin.com/in/tong-hu-5819a122a/) 
-* Yuanqi Wang [LinkedIn](https://www.linkedin.com/in/yuanqi-wang-414b26106/) | [GitHub](https://github.com/plasmas)
+* Tong Hu  [LinkedIn](https://www.linkedin.com/in/tong-hu-5819a122a/) | [Personal Website](https://www.tong-hu.com/)
+* Yuanqi Wang [LinkedIn](https://www.linkedin.com/in/yuanqi-wang-414b26106/) | [GitHub](https://github.com/plasmas) | [Personal Website](https://www.yqwong.com/)
 
 ## Introduction
 ![image](images/intro.gif)
@@ -18,6 +18,72 @@ Note: your browser must support WebGPU. See this [list](https://caniuse.com/webg
 
 ## Usage
 
+There are 2 ways to use this package:
+
+### 1. Render Wrapper
+
+This is for frontend devs who do not wish to tap into WebGPU too much. An React example can be found [here](./examples/react-renderer.tsx).
+
+You only need the `render` function which will setup all the rendering from a video element to a canvas element:
+
+```typescript
+import { CNNx2UL, GANUUL, render } from 'anime4k-webgpu';
+
+await render({
+  // your source video HTMLElement
+  video,
+  // your render destination canvas HTMLElement
+  canvas,
+  // your function to build custom pipeline
+  // return all pipelines in order of execution
+  // e.g. inputTexture(video) -> CNNx2UL -> GANUUL -> (canvas)
+  pipelineBuilder: (device, inputTexture) => {
+    const upscale = new CNNx2UL({
+      device,
+      inputTexture,
+    });
+    const restore = new GANUUL({
+      device,
+      inputTexture: upscale.getOutputTexture(),
+    });
+    return [upscale, restore];
+  },
+});
+```
+
+In the upper example, the input texture (vide) will go through a `CNNx2UL` for upscaling, and then a `GANUUL` for restore, before it is rendered to the canvas. You will build your custom pipeline in the `pipelineBuilder` function.
+
+Alternativey, to use a [preset mode](https://github.com/bloc97/Anime4K/blob/master/md/GLSL_Instructions_Advanced.md), native texture resolution and render target resolution are needed to setup the correct pipeline combinations:
+
+```typescript
+import { ModeA, render } from 'anime4k-webgpu';
+
+await render({
+  video,
+  canvas,
+  // inputTexture(video) -> Mode A -> (canvas)
+  pipelineBuilder: (device, inputTexture) => {
+    const preset = new ModeA({
+      device,
+      inputTexture,
+      nativeDimensions: {
+        width: video.videoWidth,
+        height: video.videoHeight,
+      },
+      targetDimensions: {
+        width: canvas.width,
+        height: canvas.height,
+      }
+    })
+    return [preset];
+  },
+});
+```
+
+### 2. WebGPU Pipelines
+
+If you already have a webGPU render pipeline setup and would like to use Anime4K on an existing texture, 
+
 This package contains classes that implements interface `Anime4KPipeline`. To use these classes, first install `anime4k-webgpu` package, then insert proveded pipelines in 4 lines:
 
 ```typescript
@@ -28,7 +94,10 @@ import { Anime4KPipeline, CNNx2UL } from 'anime4k-webgpu';
 const inputTexture: GPUTexture;
 
 // +++ instantiate pipeline +++
-const pipeline: Anime4KPipeline = new CNNx2UL(device, inputTexture);
+const pipeline: Anime4KPipeline = new CNNx2UL({
+  device,
+  inputTexture
+});
 
 // bind (upscaled) output texture wherever you want e.g. render pipeline
 const renderBindGroup = device.createBindGroup({
@@ -56,6 +125,39 @@ pipeline.updateParam('strength', 3.0);
 ```
 
 The input texture must have usage `TEXTURE_BINDING`, and the output texture has `TEXTURE_BINDING | RENDER_ATTACHMENT | STORAGE_BINDING` to be used in render pipelines. You can also have multiple pipelines in tandem to achieve sophisticated effects.
+
+### Supported Pipelines
+
+This package currently support the following pipelines and presets (items marked as ❌ are still in progress):
+
+* Deblur
+  * ✅ DoG
+* Denoise
+  * ✅ BilateralMean
+* Restore
+  * ✅ CNNM
+  * ✅ CNNSoftM
+  * ✅ CNNSoftVL
+  * ✅ CNNVL
+  * ✅ CNNUL
+  * ✅ GANUUL
+* Upscale
+  * ✅ CNNx2M
+  * ✅ CNNx2VL
+  * ✅ DenoiseCNNx2VL
+  * ✅ CNNx2UL
+  * ✅ GANx3L
+  * ✅ GANx4UUL
+* Other Helpers
+  * ✅ AutoDownscalePre
+  * ✅ ClampHighlights
+* Preset Mode Collections (see also [link](https://github.com/bloc97/Anime4K/blob/master/md/GLSL_Instructions_Advanced.md))
+  * ✅ ModeA
+  * ✅ ModeB
+  * ✅ ModeC
+  * ✅ ModeAA
+  * ✅ ModeBB
+  * ✅ ModeCA
 
 ## Performance Analysis
 ### Visualization Comparisons

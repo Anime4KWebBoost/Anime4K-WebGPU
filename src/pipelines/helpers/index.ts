@@ -1,8 +1,6 @@
-import Conv2d from './Conv2d';
-import DepthToSpace from './DepthToSpace';
-import Overlay from './Overlay';
-import Original from './Original';
-
-export {
-  Conv2d, DepthToSpace, Overlay, Original,
-};
+export * from './Conv2d';
+export * from './DepthToSpace';
+export * from './Overlay';
+export * from './Original';
+export * from './Downscale';
+export * from './ClampHighlights';
