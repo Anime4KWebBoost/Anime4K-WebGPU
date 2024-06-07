@@ -68,7 +68,7 @@ class Context:
   def writeShaders(self):
     for layer in self.layers:
       filename = layer.save.name.replace("_", "")
-      folderPath = os.path.join(self.outputRoot, "shaders", self.category, self.glslName)
+      folderPath = os.path.join(self.outputRoot, "shaders")
       os.makedirs(folderPath, exist_ok=True)
       filePath = os.path.join(folderPath, f"{filename}.wgsl")
       shaderContent = layer.genShader()

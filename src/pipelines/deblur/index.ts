@@ -1,3 +1,1 @@
-import DoG from './DoG';
-
-export { DoG };
+export * from './DoG';
