@@ -1,6 +1,6 @@
 {
   "name": "anime4k-webgpu",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "Anime4K WebGPU port",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
